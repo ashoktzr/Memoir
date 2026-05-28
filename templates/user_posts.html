@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{{ url_for('home') }}" class="brand-logo">Memoir</a>
+        <div class="nav-links">
+            <a href="{{ url_for('explore') }}">&larr; Back to Reflections</a>
+        </div>
+    </nav>
+
+    <div class="feed-container">
+        <h1 style="margin-bottom: 2rem; font-weight: 500; text-align: center;">Memories Shared By @{{ username }}</h1>
+        {% if not posts %}
+            <p style="color: var(--text-dim); text-align: center;">This author hasn't marked any records public yet.</p>
+        {% endif %}
+        {% for post in posts %}
+            <article class="post-card">
+                <h2><a href="{{ url_for('show_post', post_id=post.id) }}">{{ post.title }}</a></h2>
+                <p style="color: var(--text-dim); line-height: 1.6; margin-top: 1rem;">{{ post.content | truncate(200) }}</p>
+            </article>
+        {% endfor %}
+    </div>
+</body>
+</html>

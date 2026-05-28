@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="{{ url_for('home') }}" class="brand-logo">Memoir</a>
+        <div class="nav-links">
+            {% if current_user.is_authenticated %}
+                <span class="user-greeting" style="margin-right: 1.5rem; color: var(--magical-pink);">Hi {{ current_user.username }}</span>
+                <a href="{{ url_for('new_post') }}">+ Write Memories</a>
+                <a href="{{ url_for('logout') }}" style="color: var(--sunset-glow);">Sign Out</a>
+            {% else %}
+                <a href="{{ url_for('explore') }}" style="color: var(--magical-pink);">Shared Reflections</a>
+                <a href="{{ url_for('login') }}">Sign In</a>
+                <a href="{{ url_for('register') }}">Join</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <div class="container">
+        {% if not current_user.is_authenticated %}
+            <div class="landing-container">
+                <div class="welcome-header">
+                    <h1>Welcome to your personal diary</h1>
+                    <p>A quiet, beautiful space to keep your thoughts, days, and creative updates close.</p>
+                </div>
+                
+                <div class="split-grid">
+                    <a href="{{ url_for('login') }}" class="choice-card">
+                        <h2>Sign In</h2>
+                        <p>Continue weaving your memories and catch up right where you left off.</p>
+                    </a>
+                    
+                    <a href="{{ url_for('register') }}" class="choice-card">
+                        <h2>Create Diary</h2>
+                        <p>Register and start chronicling your daily activities in your own private catalog.</p>
+                    </a>
+                </div>
+            </div>
+        {% else %}
+            <div class="feed-container">
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 1.2rem;">
+                    <h1 style="margin: 0; font-weight: 500;">Your Private Memory Log</h1>
+                    <a href="{{ url_for('explore') }}" class="diary-btn" style="width: auto; padding: 0.6rem 1.2rem; font-size: 0.9rem; text-decoration: none; text-align: center;">
+                        See Public Posts
+                    </a>
+                </div>
+
+                {% if not posts %}
+                    <p style="color: var(--text-dim); text-align: center; margin-top: 3rem;">Your diary is currently empty. Click '+ Write Memories' to log your first thought!</p>
+                {% endif %}
+                
+                {% for post in posts %}
+                    <article class="post-card">
+                        <h2><a href="{{ url_for('show_post', post_id=post.id) }}">{{ post.title }}</a></h2>
+                        <p style="color: var(--text-dim); line-height: 1.6;">{{ post.content | truncate(200) }}</p>
+                        {% if post.is_public %}
+                            <span class="badge public">Shared Publicly</span>
+                        {% else %}
+                            <span class="badge private">Private Memory</span>
+                        {% endif %}
+                    </article>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>

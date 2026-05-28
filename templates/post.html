@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{{ url_for('home') }}" class="brand-logo">Memoir</a>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">&larr; Return Home</a>
+        </div>
+    </nav>
+
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <div class="post-detail-box">
+        <h1 style="margin-top: 0; font-weight: 600; color: #fff;">{{ post.title }}</h1>
+        
+        <div style="font-size: 1.05rem; line-height: 1.8; color: #e2e8f0; white-space: pre-line; margin-top: 2rem;">
+            {{ post.content }}
+        </div>
+
+        <div class="danger-zone" style="display: flex; justify-content: flex-end; gap: 1rem; align-items: center;">
+            {% if current_user.is_authenticated and post.author == current_user %}
+                
+                {% if not post.is_public %}
+                    <form action="{{ url_for('make_public', post_id=post.id) }}" method="POST">
+                        <button type="submit" class="diary-btn" style="padding: 0.6rem 1.2rem; font-size: 0.9rem;">Make Public</button>
+                    </form>
+                {% else %}
+                    <span style="color: var(--text-dim); font-size: 0.9rem; font-style: italic;">✓ Published to Public Feed</span>
+                {% endif %}
+
+                <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to permanently delete this memory?');">
+                    <button type="submit" class="btn-delete">Delete Post</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

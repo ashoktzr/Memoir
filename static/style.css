@@ -1,0 +1,313 @@
+:root {
+    --bg-sky: #131124;
+    --panel-bg: rgba(28, 25, 48, 0.85);
+    --sunset-glow: #ff7e5f;
+    --magical-pink: #feb47b;
+    --neon-violet: #8a2be2;
+    --text-light: #f3f4f6;
+    --text-dim: #a0aec0;
+}
+
+body {
+    background: linear-gradient(135deg, #120c1f 0%, #22163b 50%, #0f091a 100%);
+    color: var(--text-light);
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+/* Beautiful Animated Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 3rem;
+    background: rgba(18, 12, 31, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--sunset-glow);
+    box-shadow: 0 4px 25px rgba(255, 126, 95, 0.15);
+}
+
+.brand-logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    background: linear-gradient(45deg, var(--sunset-glow), var(--magical-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-links a {
+    color: var(--text-light);
+    text-decoration: none;
+    margin-left: 2rem;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-links a:hover, .auth-switch:hover {
+    color: var(--sunset-glow);
+}
+
+/* Elegant Split Welcome View */
+.landing-container {
+    max-width: 1000px;
+    margin: 6rem auto;
+    padding: 0 2rem;
+    text-align: center;
+}
+
+.welcome-header h1 {
+    font-size: 3rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.welcome-header p {
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    margin-bottom: 4rem;
+}
+
+.split-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+}
+
+.choice-card {
+    background: var(--panel-bg);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.choice-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--sunset-glow);
+    box-shadow: 0 15px 35px rgba(255, 126, 95, 0.2);
+}
+
+.choice-card h2 {
+    font-size: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #fff, var(--magical-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.choice-card p {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* User-Friendly Form Containers */
+.form-wrapper {
+    max-width: 400px;
+    margin: 6rem auto;
+    background: var(--panel-bg);
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    font-weight: 500;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: rgba(15, 12, 26, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+
+.form-group input:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: var(--sunset-glow);
+    background: rgba(15, 12, 26, 0.9);
+}
+
+.diary-btn {
+    width: 100%;
+    padding: 0.85rem;
+    background: linear-gradient(45deg, var(--sunset-glow), var(--magical-pink));
+    color: #120c1f;
+    border: none;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.diary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 126, 95, 0.4);
+}
+
+.auth-switch-box {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+}
+
+.auth-switch {
+    color: var(--sunset-glow);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Feed View */
+.feed-container {
+    max-width: 750px;
+    margin: 4rem auto;
+    padding: 0 1.5rem;
+}
+
+.post-card {
+    background: var(--panel-bg);
+    border-radius: 14px;
+    padding: 2rem;
+    margin-bottom: 1.8rem;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.post-card h2 {
+    margin-top: 0;
+}
+
+.post-card h2 a {
+    color: #fff;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.post-card h2 a:hover {
+    color: var(--sunset-glow);
+}
+
+/* Post Details & Simple Delete Button */
+.post-detail-box {
+    max-width: 750px;
+    margin: 4rem auto;
+    background: var(--panel-bg);
+    padding: 3rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.danger-zone {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-delete {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid #ef4444;
+    padding: 0.6rem 1.5rem;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-delete:hover {
+    background: #ef4444;
+    color: #fff;
+}
+
+/* User Feedback Alert System */
+.flash-messages {
+    max-width: 500px;
+    margin: 1.5rem auto 0 auto;
+    padding: 0 1rem;
+}
+
+.flash {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.flash.error {
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid #ef4444;
+    color: #fca5a5;
+}
+
+.flash.success {
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid #10b981;
+    color: #6ee7b7;
+}
+
+/* User Greeting Style */
+.user-greeting {
+    font-size: 0.95rem;
+    color: var(--magical-pink);
+    font-weight: 600;
+    margin-right: 1rem;
+}
+
+/* Privacy Checkbox Structure */
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--sunset-glow);
+    cursor: pointer;
+}
+
+/* Privacy Badges */
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+}
+.badge.private { background: rgba(255,255,255,0.1); color: var(--text-dim); }
+.badge.public { background: rgba(255, 126, 95, 0.2); color: var(--sunset-glow); }

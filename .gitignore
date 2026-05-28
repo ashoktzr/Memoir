@@ -1,0 +1,39 @@
+# Python Bytecode & Caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.python-version
+
+# Virtual Environments (Ignores your '(proj)' folder)
+proj/
+venv/
+env/
+.venv/
+ENV/
+
+# Environment Variables & Secrets
+.env
+.flaskenv
+*.secret
+gunicorn.log
+access.log
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# IDEs and Text Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Local Databases & Instance Folders
+instance/
+*.db
+*.sqlite
+*.sqlite3
