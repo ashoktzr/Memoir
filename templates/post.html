@@ -33,7 +33,7 @@
         <div class="danger-zone" style="display: flex; justify-content: flex-end; gap: 1rem; align-items: center;">
             {% if current_user.is_authenticated and post.author == current_user %}
                 
-                <a href="{{ url_for('edit', post_id=post.id) }}" class="diary-btn" style="padding: 0.6rem 1.2rem; font-size: 0.9rem; text-decoration: none; text-align: center; background-color: #4a5568;">Edit Post</a>
+                <a href="{{ url_for('edit_post', post_id=post.id) }}" class="diary-btn" style="padding: 0.6rem 1.2rem; font-size: 0.9rem; text-decoration: none; text-align: center; background-color: #4a5568;">Edit Post</a>
         
                 {% if not post.is_public %}
                     <form action="{{ url_for('make_public', post_id=post.id) }}" method="POST">
