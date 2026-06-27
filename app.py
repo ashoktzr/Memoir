@@ -149,6 +149,27 @@ def make_private(post_id):
     flash('This memory is now locked to other users.', 'success')
     return redirect(url_for('show_post', post_id=post.id))
 
+@app.route('/post/<int:post_id>/edit', methods=['GET', 'POST'])
+@login_required
+def edit_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    
+    # Security Guardrail: Prevent unauthorized editing
+    if post.author != current_user:
+        flash('Permission denied.', 'error')
+        return redirect(url_for('home'))
+        
+    if request.method == 'POST':
+        post.title = request.form['title']
+        post.content = request.form['content']
+        post.is_public = 'is_public' in request.form
+        
+        db.session.commit()
+        flash('Diary entry updated successfully!', 'success')
+        return redirect(url_for('show_post', post_id=post.id))
+        
+    return render_template('update_post.html', title='Edit Memory', post=post)
+
 @app.route('/post/<int:post_id>/delete', methods=['POST'])
 @login_required
 def delete_post(post_id):
