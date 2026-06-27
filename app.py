@@ -136,6 +136,19 @@ def make_public(post_id):
     flash('This memory has been shared with the public feed.', 'success')
     return redirect(url_for('show_post', post_id=post.id))
 
+@app.route('/post/<int:post_id>/make_private', methods=['POST'])
+@login_required
+def make_private(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        flash('Unauthorized action.', 'error')
+        return redirect(url_for('home'))
+    
+    post.is_public = False
+    db.session.commit()
+    flash('This memory is now locked to other users.', 'success')
+    return redirect(url_for('show_post', post_id=post.id))
+
 @app.route('/post/<int:post_id>/delete', methods=['POST'])
 @login_required
 def delete_post(post_id):
