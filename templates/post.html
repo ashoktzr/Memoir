@@ -38,7 +38,9 @@
                         <button type="submit" class="diary-btn" style="padding: 0.6rem 1.2rem; font-size: 0.9rem;">Make Public</button>
                     </form>
                 {% else %}
-                    <span style="color: var(--text-dim); font-size: 0.9rem; font-style: italic;">✓ Published to Public Feed</span>
+                    <form action="{{ url_for('make_private', post_id=post.id) }}" method="POST">
+                        <button type="submit" class="diary-btn" style="padding: 0.6rem 1.2rem; font-size: 0.9rem;">Make Private</button>
+                    </form>
                 {% endif %}
 
                 <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to permanently delete this memory?');">
