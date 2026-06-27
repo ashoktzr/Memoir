@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-key-fallback')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -118,6 +118,9 @@ def new_post():
 @app.route('/post/<int:post_id>')
 def show_post(post_id):
     post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        flash('Unauthorized action.', 'error')
+        return redirect(url_for('home'))
     return render_template('post.html', title=post.title, post=post)
 
 @app.route('/post/<int:post_id>/make_public', methods=['POST'])
