@@ -34,7 +34,7 @@ The application stack combines:
 The primary objective of Phase I was to establish a stable and production-capable compute environment capable of serving HTTP traffic reliably while maintaining process resilience and deployment isolation — using nothing more than a minimal in-memory Flask application as the validation payload.
 
 ---
-
+<div style="page-break-after: always;"></div>
 ## Application Architecture Overview
 
 The deployed architecture follows a layered request-processing model, where each component is responsible for a single well-defined concern. Incoming client traffic never reaches the Python application directly; instead, it passes through multiple infrastructure layers that provide security, performance, and operational isolation.
@@ -351,7 +351,7 @@ Unix socket communication provides:
 This architecture is the standard communication pattern used in production Linux web server environments where the reverse proxy and application server reside on the same host.
 
 ---
-
+<div style="page-break-after: always;"></div>
 ## Nginx Reverse Proxy Configuration
 
 Nginx was configured as the edge routing layer, responsible for all public-facing HTTP traffic:
@@ -404,7 +404,7 @@ sudo systemctl restart nginx
 ```
 
 ---
-
+<div style="page-break-after: always;"></div>
 ## systemd Service Integration
 
 Gunicorn was registered as a persistent Linux service managed by systemd.
@@ -454,7 +454,7 @@ At this stage, both Gunicorn and Nginx are enabled as persistent services that:
 The application stack was now fully operational and serving HTTP traffic through the complete Nginx → Gunicorn → Flask pipeline. The in-memory dummy application was successfully accessible from a web browser via the instance's public IP address, validating the entire production infrastructure stack.
 
 ---
-
+<div style="page-break-after: always;"></div>
 ## Operational Outcomes of Phase I
 
 The completion of this phase established a stable production-oriented backend environment with the following characteristics:
@@ -471,7 +471,7 @@ The application stack was validated independently from any persistence systems, 
 
 ---
 ---
-
+<div style="page-break-after: always;"></div>
 # Phase II — Cloud Database Integration, User Authentication, Feature Development, and Infrastructure Automation
 
 ## Introduction
@@ -522,7 +522,7 @@ The managed database service provides:
 This allows engineering focus to remain on application development rather than low-level database administration — particularly important for a free-tier project where compute time is limited and every hour spent on infrastructure maintenance consumes billable resources.
 
 ---
-
+<div style="page-break-after: always;"></div>
 ## AWS RDS Provisioning
 
 A dedicated MySQL-based RDS instance was provisioned within AWS in the `eu-north-1` (Stockholm) region.
@@ -560,7 +560,7 @@ This architecture enforces a strict security boundary:
 The database remains invisible to the public internet and only accepts authenticated traffic from approved infrastructure sources within the same VPC.
 
 ---
-
+<div style="page-break-after: always;"></div>
 ## Flask Database Reconfiguration
 
 The Flask application was reconfigured to connect to the remote RDS MySQL instance instead of using in-memory storage.
@@ -720,7 +720,7 @@ The privacy model follows a **secure private-by-default** pattern:
 This architecture ensures that personal journal content is never unintentionally exposed to other users or the public feed.
 
 ---
-
+<div style="page-break-after: always;"></div>
 ## Production Systemd Unit File Update
 
 With the introduction of the database layer and application secrets, the systemd unit file required significant updates to inject environment variables into the Gunicorn runtime.
@@ -788,7 +788,7 @@ git remote add origin https://github.com/<username>/memoir.git
 ```
 
 ---
-
+<div style="page-break-after: always;"></div>
 ### Repository Sanitization Through .gitignore
 
 A `.gitignore` file was introduced to prevent accidental exposure of sensitive infrastructure artifacts and unnecessary files:
@@ -874,7 +874,7 @@ The Gunicorn service is configured to start automatically when the EC2 instance 
 This creates an unreliable startup sequence where the order of resource initialization matters critically. Manually starting the database first, waiting for it to become available, and then starting EC2 is tedious and error-prone.
 
 ---
-
+<div style="page-break-after: always;"></div>
 ## Solution: AWS Step Functions Infrastructure Automation
 
 To solve the startup ordering problem, an AWS Step Functions state machine named **`Memoir_starter`** was created to orchestrate the entire infrastructure startup sequence with a single click.
@@ -934,7 +934,7 @@ The workflow logic:
 5. **StartEC2Instance** — Once the database is confirmed available, starts the EC2 instance
 
 This polling loop ensures that the EC2 instance — and therefore Gunicorn — only starts after the database is fully ready to accept connections.
-
+<div style="page-break-after: always;"></div>
 ### Step Function Definition (Amazon States Language)
 
 ```json
@@ -992,7 +992,7 @@ This polling loop ensures that the EC2 instance — and therefore Gunicorn — o
 ![Step Function Workflow — Design View](Screenshots/Memoir_starter-step-function%20-graph.png)
 
 ---
-
+<div style="page-break-after: always;"></div>
 ### IAM Role and Least-Privilege Policy
 
 The Step Functions state machine executes under a dedicated IAM service role: `StepFunctions-Memoir_starter-role-1uxxs0o9b`.
