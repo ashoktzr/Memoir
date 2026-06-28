@@ -2,6 +2,7 @@ services:
   # Container 1: Your Flask Application (Gunicorn)
   app:
     build: .
+    restart: always
     env_file:
       - .env
     volumes:
@@ -10,6 +11,7 @@ services:
   # Container 2: Nginx Web Server
   web:
     image: nginx:alpine
+    restart: always
     ports:
       - "80:80" # Maps port 80 on your Windows laptop to Nginx inside the container
     volumes:
