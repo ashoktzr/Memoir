@@ -1,0 +1,21 @@
+# Ignore local databases and logs
+*.db
+*.sqlite
+*.sqlite3
+*.log
+
+# Ignore virtual environments
+venv/
+env/
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+
+# Ignore secrets and Git history
+.env
+.git/
+.gitignore
+
+# Ignore Screenshots
+Screenshots/

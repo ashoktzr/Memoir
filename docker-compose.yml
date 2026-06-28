@@ -1,0 +1,18 @@
+services:
+  # Container 1: Your Flask Application (Gunicorn)
+  app:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - .:/app # This syncs your local folder to the container so you don't have to rebuild every time you change code
+
+  # Container 2: Nginx Web Server
+  web:
+    image: nginx:alpine
+    ports:
+      - "80:80" # Maps port 80 on your Windows laptop to Nginx inside the container
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - app # Ensures Nginx waits for your Flask app to start before turning on
